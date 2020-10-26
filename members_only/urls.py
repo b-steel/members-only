@@ -22,9 +22,8 @@ from apps.accounts.views import Signup, ProfileView
 
 
 urlpatterns = [
-    path('', )
     path('admin/', admin.site.urls),
-    path('frontpage/', FrontPage.as_view(), name='frontpage'),
+    path('', FrontPage.as_view(), name='frontpage'),
     path('accounts/signup/', Signup.as_view(), name='signup'),
     path('accounts/login/', authviews.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('accounts/logout/', authviews.LogoutView.as_view(), name='logout'),
