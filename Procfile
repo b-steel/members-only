@@ -1,1 +1,1 @@
-web: gunicorn members_only.wsgi --log-file
+web: gunicorn members_only.wsgi --log-file -
