@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'apps.core', 
     'apps.accounts',
 ]
@@ -125,3 +126,5 @@ STATIC_URL = '/static/'
 #Logout / Logout Redirect
 LOGOUT_REDIRECT_URL = 'frontpage'
 LOGIN_REDIRECT_URL = 'frontpage'
+
+DJANGO_SETTINGS_MODULE = 'members_only.settings'

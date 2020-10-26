@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as authviews
 
-from apps.core.views import FrontPage
+from apps.core.views import FrontPage, PostView
 from apps.accounts.views import Signup
 
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/signup/', Signup.as_view(), name='signup'),
     path('accounts/login/', authviews.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('accounts/logout/', authviews.LogoutView.as_view(), name='logout'),
+    path('create_post/', PostView.as_view(), name='create_post'),
 
 
 ]

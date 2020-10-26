@@ -7,14 +7,15 @@ from django.contrib.auth import login
 
 class Signup(View):
     def get(self, request):
-        f = UserCreationForm()
-        return render(request, 'accounts/signup.html', name='signup')
+        form = UserCreationForm()
+        return render(request, 'accounts/signup.html', {'form': form})
+        
 
     def post(self, request):
-        f = UserCreationForm(request.POST)
-        if f.is_valid():
-            user = f.save()
-            login(requst, user)
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
         return redirect('frontpage')
 
 
