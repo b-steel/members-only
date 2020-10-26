@@ -36,7 +36,7 @@
                                         <br>
                                         {% for item in post.tagged_text %}
                                             {% if item.tag %}
-                                                <a href="{{ item.tag }}">{{ item.text }}</a>
+                                                <a href="{% url 'profile' item.tag %}">{{ item.text }}</a>
                                             {% else %}
                                                 {{ item.text }}
                                             {% endif %}

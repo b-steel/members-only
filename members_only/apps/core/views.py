@@ -8,36 +8,42 @@ from .forms import PostForm
 
 import re
 
-def split_tagged_post(text):
-    p = re.compile('(@[\w_\-!]+)')
-    text = re.split(p, text)
-    return text
+
+def create_tagged_post_context(posts):
+    def split_tagged_post(text):
+        p = re.compile('(@[\w_\-!]+)')
+        text = re.split(p, text)
+        return text
+   
+    context = {
+            'posts':[]
+        }
+
+    for post in posts:
+        textlist = split_tagged_post(post.text)
+
+        tagged_text = []
+
+        for s in textlist:
+            if s and s[0]=='@':
+                qset = User.objects.filter(username=s[1:])
+                if qset:
+                    tagged_text.append({'text': s, 'tag': qset[0]}) 
+                else:
+                    tagged_text.append({'text': s, 'tag': None})
+            else:
+                tagged_text.append({'text': s, 'tag': None})
+
+        context['posts'].append({'post': post, 'tagged_text': tagged_text})
+    return context
+
+
+
 
 class FrontPage(View):
     def get(self, request):
         posts = Post.objects.all()
-
-        context = {
-            'posts':[]
-        }
-
-        for post in posts:
-            textlist = split_tagged_post(post.text)
-
-            tagged_text = []
-
-            for s in textlist:
-                if s and s[0]=='@':
-                    qset = User.objects.filter(username=s[1:])
-                    if qset:
-                        tagged_text.append({'text': s, 'tag': qset[0]}) 
-                    else:
-                        tagged_text.append({'text': s, 'tag': None})
-                else:
-                    tagged_text.append({'text': s, 'tag': None})
-
-            context['posts'].append({'post': post, 'tagged_text': tagged_text})
-
+        context = create_tagged_post_context(posts)
         return render(request, 'core/frontpage.html', context)
 
 def get_tags_or_none(text):
