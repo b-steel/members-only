@@ -30,5 +30,4 @@ urlpatterns = [
     path('create_post/', PostView.as_view(), name='create_post'),
     path('u/<str:username>/', ProfileView.as_view(), name='profile'),
 
-
 ]

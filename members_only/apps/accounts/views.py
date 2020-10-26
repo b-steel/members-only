@@ -26,11 +26,10 @@ class Signup(View):
 
 class ProfileView(View):
     def get(self, request, username):
-        user = get_object_or_404(User, username=request.user.username)
         profile = get_object_or_404(User, username=username)
         posts = profile.posts.all()
         context = create_tagged_post_context(posts)
-        context['user'] = user
         context['profile'] = profile
 
         return render(request, 'accounts/profile.html', context)
+

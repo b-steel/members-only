@@ -16,7 +16,7 @@
 
             {% if not user.is_authenticated %}
             <div class="wrapper post media-content content">
-                <h3>Want to see what {{ profile.username }}'s posting?<a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Signup</a> to see</h3
+                <h3>Want to see what {{ profile.username }}'s posting? <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Signup</a> to see.</h3
             </div>
             <br>
             {% endif %}
@@ -30,8 +30,8 @@
                                     <p>
                                         <strong>{{ post.post.created_by.username }}</strong>
                                         <small>{{ post.post.created_on | naturaltime }}</small>
+                                        <br>
                                         {% if user.is_authenticated %}
-                                            <br>
                                             {% for item in post.tagged_text %}
                                                 {% if item.tag %}
                                                     <a href="{% url 'profile' item.tag %}">{{ item.text }}</a>
@@ -40,7 +40,7 @@
                                                 {% endif %}
                                             {% endfor %}
                                         {% else %}
-                                            UNKNOWN CONTENT
+                                            Content Hidden
                                         {% endif %}
                                         <br>
                                         <hr>
