@@ -22,6 +22,7 @@ from apps.accounts.views import Signup, ProfileView
 
 
 urlpatterns = [
+    path('', )
     path('admin/', admin.site.urls),
     path('frontpage/', FrontPage.as_view(), name='frontpage'),
     path('accounts/signup/', Signup.as_view(), name='signup'),
