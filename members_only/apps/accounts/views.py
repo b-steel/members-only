@@ -8,11 +8,11 @@ from django.contrib.auth import login
 class Signup(View):
     def get(self, request):
         f = UserCreationForm()
-        return render(request, 'accounts/signup', name='signup')
+        return render(request, 'accounts/signup.html', name='signup')
 
     def post(self, request):
         f = UserCreationForm(request.POST)
-        if f.is_valid()
+        if f.is_valid():
             user = f.save()
             login(requst, user)
         return redirect('frontpage')

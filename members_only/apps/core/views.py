@@ -8,3 +8,5 @@ from .models import Post
 class FrontPage(View):
     def get(self, request):
         return render(request, 'core/frontpage.html', {})
+
+
