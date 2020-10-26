@@ -28,9 +28,9 @@ class FrontPage(View):
 
             for s in textlist:
                 if s and s[0]=='@':
-                    user = User.objects.get(username=s[1:])
-                    if user:
-                        tagged_text.append({'text': s, 'tag': user}) 
+                    qset = User.objects.filter(username=s[1:])
+                    if qset:
+                        tagged_text.append({'text': s, 'tag': qset[0]}) 
                     else:
                         tagged_text.append({'text': s, 'tag': None})
                 else:
@@ -61,9 +61,9 @@ class PostView(LoginRequiredMixin, View):
 
             users = []
             for tag in tags:
-                user = User.objects.get(username=tag)
-                if user:
-                    users.append(user)
+                qset = User.objects.filter(username=tag)
+                if qset:
+                    users.append(qset[0])
             
             post.tags.add(*users)
             post.save()
