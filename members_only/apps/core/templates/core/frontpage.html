@@ -6,6 +6,12 @@
 <div class="container">
     <div class="columns">
         <div class="column is-12">
+            {% if not user.is_authenticated %}
+            <div class="wrapper post media-content content">
+                <h3>Want to see who's posting? <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Signup</a> to see usernames</h3
+            </div>
+            <br>
+            {% endif %}
             <div class="wrapper">
                 {% for post in posts  %}
                     <div class="post">
@@ -21,11 +27,22 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong>{{ post.created_by.username }}</strong>
-                                        <small>{{ post.created_on | naturaltime }}</small>
+                                        {% if user.is_authenticated %}
+                                        <strong>{{ post.post.created_by.username }}</strong>
+                                        {% else %}
+                                        <strong>Anonymous</strong>
+                                        {% endif %}
+                                        <small>{{ post.post.created_on | naturaltime }}</small>
                                         <br>
-                                        {{ post.text }}
+                                        {% for item in post.tagged_text %}
+                                            {% if item.tag %}
+                                                <a href="{{ item.tag }}">{{ item.text }}</a>
+                                            {% else %}
+                                                {{ item.text }}
+                                            {% endif %}
+                                        {% endfor %}
                                         <br>
+                                        <hr>
                                     </p>
                                 </div>
                             </div>
