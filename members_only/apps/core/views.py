@@ -16,4 +16,12 @@ class PostView(LoginRequiredMixin, View):
         form = PostForm()
         return render(request, 'core/create_post.html', {'form':form})
 
+    def post(self, request):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            post = Post(created_by=request.user, text=text)
+            post.save()
+            return redirect('frontpage')
+
 
